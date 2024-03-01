@@ -16,7 +16,6 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat") // 웹소켓 연결 End-Point (ws://localhost:8080/chat)
                 .setAllowedOriginPatterns("*");
-//                .withSockJS();
 //        registry.setErrorHandler(); -> 에러 핸들러: 소켓통신 중 예외 발생 시 해당 핸들러로 제어권이 넘어감
     }
 
@@ -29,6 +28,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
+        // 클라이언트가 들어오는 경계(interceptor)에 대한 설정
 //        registration.interceptors();
     }
 }
