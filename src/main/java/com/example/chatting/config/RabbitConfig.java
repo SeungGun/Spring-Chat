@@ -20,17 +20,17 @@ public class RabbitConfig {
     private static final String ROUTING_KEY = "*.room.*";
 
     @Bean
-    public Queue queue(){
-        return new Queue(CHAT_QUEUE_NAME, true);
+    public Queue queue() {
+        return new Queue(CHAT_QUEUE_NAME, true, false, false);
     }
 
     @Bean
-    public TopicExchange exchange(){
+    public TopicExchange exchange() {
         return new TopicExchange(CHAT_EXCHANGE_NAME, true, false);
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange){
+    public Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -38,7 +38,7 @@ public class RabbitConfig {
     }
 
     @Bean
-    public ConnectionFactory connectionFactory(){
+    public ConnectionFactory connectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
         factory.setHost("localhost");
         factory.setPort(5672);
@@ -49,12 +49,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Jackson2JsonMessageConverter jsonMessageConverter(){
+    public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(){
+    public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
